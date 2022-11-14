@@ -22,7 +22,7 @@ jobs:
       # deployments: write
     
     env:
-      STACK_NAME: AWS Sandbox
+      STACK_NAME: AWSSandbox
       REGION: us-east-1
 
     steps:
