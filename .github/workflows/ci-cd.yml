@@ -1,0 +1,45 @@
+name: ci-cd
+
+on: [ 'push' ]
+
+# alternative: trigger pipeline on pushes to main or pull requests to a specific branch
+# on:
+#   push:
+#     branches: ['master']
+#     pull_request:
+#       branches: [ 'master' ]
+
+# defines list of jobs for workflow to run
+jobs:
+  deploy:
+    name: Test deployment
+    runs-on: ubuntu-latest
+
+    # permissions required to interact with GitHub's OIDC Token endpoint
+    permissions:
+      id-token: write
+      contents: read
+      # deployments: write
+    
+    env:
+      STACK_NAME: AWSSandbox
+
+    steps:
+      - name: Check Github Repo
+        uses: actions/checkout@v2
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ secrets.ARN_AWS_IAM_ROLE }}
+          aws-region: us-east-1
+
+      # Infrastructure as Code
+      - name: Deploy ${{ env.STACK_NAME }} Cloudformation Stack
+        run: |
+          sam deploy --stack-name $STACK_NAME --region us-east-1
+
+      - name: Copy files onto S3 using AWS CLI
+        run: |
+          BUCKET_NAME=$(aws cloudformation describe-stacks --stack-name $STACK_NAME --query 'Stacks[0].Outputs[?OutputKey==`BucketName`].OutputValue' --output text)
+          aws s3 cp src s3://$BUCKET_NAME --recursive
