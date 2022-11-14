@@ -12,7 +12,7 @@ on: [ 'push' ]
 # defines list of jobs for workflow to run
 jobs:
   deploy:
-    name: AWS Sandbox Deployment
+    name: deploy
     runs-on: ubuntu-latest
 
     # permissions required to interact with GitHub's OIDC Token endpoint
@@ -22,7 +22,8 @@ jobs:
       # deployments: write
     
     env:
-      STACK_NAME: AWS-Sandbox
+      STACK_NAME: AWS Sandbox
+      REGION: us-east-1
 
     steps:
       - name: Check Github Repo
@@ -35,11 +36,11 @@ jobs:
           aws-region: us-east-1
 
       # Infrastructure as Code
-      - name: Deploy ${{ env.STACK_NAME }} Cloudformation Stack
+      - name: Deploy ${{ env.STACK_NAME }} CloudFormation Stack
         run: |
-          sam deploy --stack-name $STACK_NAME --region us-east-1 --capabilities CAPABILITY_IAM
-
-      - name: Copy files onto S3 using AWS CLI
+          sam deploy --stack-name $STACK_NAME --region $REGION
+          
+      - name: Add Files to S3 Bucket
         run: |
           BUCKET_NAME=$(aws cloudformation describe-stacks --stack-name $STACK_NAME --query 'Stacks[0].Outputs[?OutputKey==`BucketName`].OutputValue' --output text)
           aws s3 cp src s3://$BUCKET_NAME --recursive
