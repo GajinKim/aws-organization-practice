@@ -35,10 +35,9 @@ jobs:
           role-to-assume: ${{ secrets.ARN_AWS_IAM_ROLE }}
           aws-region: us-east-1
 
-      # Infrastructure as Code
       - name: Deploy ${{ env.STACK_NAME }} CloudFormation Stack
         run: |
-          sam deploy --stack-name $STACK_NAME --region $REGION --no-fail-on-empty-changeset 
+          sam deploy --stack-name $STACK_NAME -t deploy-template.yml --region $REGION --no-fail-on-empty-changeset 
           
       - name: Add Files to S3 Bucket
         run: |
