@@ -20,5 +20,4 @@ This repository serves as a step-by-step guide to create a simple aws applicatio
     - This is why we setup Github Actions using OIDC.
 
 3. Further Configurations
-   1. Add `"token.actions.githubusercontent.com:sub": "repo:GajinKim/aws-sandbox:*",` to IAM Role Trust relationships
-   2. Change Condition to `ForAllValues:StringLike` in IAM Role Trust relationships
+   1. If it complains about Cloudformation ChangeSet is not allowed, create / attach a policy with to Role Permissions.

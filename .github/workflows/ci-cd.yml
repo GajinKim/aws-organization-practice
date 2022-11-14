@@ -22,7 +22,7 @@ jobs:
       # deployments: write
     
     env:
-      STACK_NAME: AWSSandbox
+      STACK_NAME: AWS-Sandbox
 
     steps:
       - name: Check Github Repo
