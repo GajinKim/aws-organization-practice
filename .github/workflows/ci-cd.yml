@@ -12,7 +12,7 @@ on: [ 'push' ]
 # defines list of jobs for workflow to run
 jobs:
   deploy:
-    name: Test deployment
+    name: AWS Sandbox Deployment
     runs-on: ubuntu-latest
 
     # permissions required to interact with GitHub's OIDC Token endpoint
