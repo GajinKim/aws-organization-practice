@@ -22,3 +22,9 @@ Resources:
               - !Sub "arn:aws:s3:::${Bucket}/*"
             Principal: "*"
             Sid: "PublicReadGetObject"
+
+Outputs:
+  # need to output Bucket name for the cicd pipeline
+  BucketName:
+    Description: S3 Bucket Name
+    Value: !Ref Bucket
