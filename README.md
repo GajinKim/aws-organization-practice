@@ -18,6 +18,11 @@ This repository serves as a step-by-step guide to create a simple aws applicatio
   - [Create IAM Role in AWS Console](https://www.automat-it.com/post/using-github-actions-with-aws-iam-roles)
     - Security best practices in IAM: applications and services should use IAM roles instead or IAM users.
     - This is why we setup Github Actions using OIDC.
+  - [Deploying with sam](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-command-reference.html)
 
 3. Further Configurations
    1. If it complains about Cloudformation ChangeSet is not allowed, create / attach a policy with to Role Permissions.
+
+
+identity - establish trust
+github action
