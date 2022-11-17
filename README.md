@@ -23,6 +23,3 @@ This repository serves as a step-by-step guide to create a simple aws applicatio
 3. Further Configurations
    1. If it complains about Cloudformation ChangeSet is not allowed, create / attach a policy with to Role Permissions.
 
-
-identity - establish trust
-github action
